@@ -50,6 +50,7 @@ class GameStageState extends State<GameStage> {
           ),
           GameBg(
             gameType: status.gameType,
+            borderWidth: status.getBorderWidth(),
           )
         ],
       ),
