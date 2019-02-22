@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:ui';
 import '../utils/Device.dart';
 
 class GameBg extends StatelessWidget {
@@ -12,7 +11,7 @@ class GameBg extends StatelessWidget {
     return Container(
         margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
         padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-        height: Device.getRpx(window.physicalSize.width),
+        height: Device.getRpx(Device.size.width),
         decoration: BoxDecoration(
             color: const Color(0xffbbada0),
             border: Border.all(color: Colors.transparent, width: 0),
