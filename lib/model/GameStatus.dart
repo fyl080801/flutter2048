@@ -9,8 +9,4 @@ class GameStatus {
   int moves = 0;
 
   int scores = 0;
-
-  double getBorderWidth() {
-    return double.parse((2.5 / gameType).toStringAsFixed(2)) * 10;
-  }
 }

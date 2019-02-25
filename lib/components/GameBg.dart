@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import '../utils/Screen.dart';
 import '../utils/Device.dart';
 
 class GameBg extends StatelessWidget {
-  const GameBg({Key key, this.gameType, this.borderWidth}) : super(key: key);
+  const GameBg({Key key, this.gameType}) : super(key: key);
 
   final int gameType;
 
-  final double borderWidth;
+  double get borderWidth => Screen.getBorderWidth(gameType);
 
   @override
   Widget build(BuildContext context) {

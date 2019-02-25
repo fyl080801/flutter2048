@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_hello/components/GameBg.dart';
-import 'package:flutter_hello/model/GameStatus.dart';
+import './GameBg.dart';
+import './Playground.dart';
+import '../model/GameStatus.dart';
 
 class GameStage extends StatefulWidget {
   const GameStage({Key key, this.status}) : super(key: key);
@@ -48,9 +51,15 @@ class GameStageState extends State<GameStage> {
               ],
             ),
           ),
-          GameBg(
-            gameType: status.gameType,
-            borderWidth: status.getBorderWidth(),
+          Stack(
+            children: <Widget>[
+              GameBg(
+                gameType: status.gameType,
+              ),
+              Playground(
+                gameType: status.gameType,
+              )
+            ],
           )
         ],
       ),
@@ -58,6 +67,15 @@ class GameStageState extends State<GameStage> {
   }
 
   void setGameType(int type) {
+    var random = new Random();
+    var gamesize = status.gameType * status.gameType;
+    var block1 = random.nextInt(gamesize - 1);
+    var block2 = random.nextInt(gamesize - 1);
+
+    while (block1 == block2) {
+      block2 = random.nextInt(gamesize);
+    }
+
     setState(() {
       status.gameType = type;
     });
