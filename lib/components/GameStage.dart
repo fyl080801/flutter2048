@@ -29,9 +29,7 @@ class GameStageState extends State<GameStage> {
         children: <Widget>[
           TypeSelector(
             // 模式选择
-            onTypeChanged: (int type) {
-              setGameType(type);
-            },
+            onTypeChanged: setGameType,
           ),
           Container(
             child: Row(

@@ -18,27 +18,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // initGame();
-
     return ViewScaffold(
       children: <Widget>[
         GameStage(status: status),
       ],
     );
   }
-
-  // initGame() {
-  //   status.adds = 0;
-  //   status.moves = 0;
-  //   status.scores = 0;
-
-  //   var random = new Random();
-  //   var gamesize = status.gameType * status.gameType - 1;
-  //   var block1 = random.nextInt(gamesize);
-  //   var block2 = random.nextInt(gamesize);
-
-  //   while (block1 == block2) {
-  //     block2 = random.nextInt(gamesize);
-  //   }
-  // }
 }
