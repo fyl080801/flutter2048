@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import './components/GameStage.dart';
 import './components/ViewScaffold.dart';

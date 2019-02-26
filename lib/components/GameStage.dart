@@ -1,6 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+import './TypeSelector.dart';
 import './GameBg.dart';
 import './Playground.dart';
 import '../model/GameStatus.dart';
@@ -22,36 +22,30 @@ class GameStageState extends State<GameStage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.all(10),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+          TypeSelector(
+            // 模式选择
+            onTypeChanged: (int type) {
+              setGameType(type);
+            },
+          ),
           Container(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                RaisedButton(
-                  onPressed: () {
-                    setGameType(4);
-                  },
-                  child: Text('4'),
+                Container(
+                  child: Text(status.scores.toString()),
                 ),
-                RaisedButton(
-                  onPressed: () {
-                    setGameType(6);
-                  },
-                  child: Text('6'),
-                ),
-                RaisedButton(
-                  onPressed: () {
-                    setGameType(8);
-                  },
-                  child: Text('8'),
-                )
+                Container()
               ],
             ),
           ),
           Stack(
+            // 交互区
             children: <Widget>[
               GameBg(
                 gameType: status.gameType,

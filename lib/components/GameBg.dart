@@ -12,7 +12,7 @@ class GameBg extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+        // margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
         padding: EdgeInsets.fromLTRB(borderWidth, borderWidth, 0, 0),
         height: Device.getRpx(Device.size.width),
         decoration: BoxDecoration(

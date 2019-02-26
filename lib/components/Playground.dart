@@ -38,8 +38,7 @@ class Playground extends StatelessWidget {
       onVerticalDragEnd: onVerticalDragEnd,
       child: Container(
         color: Colors.transparent,
-        margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
-        padding: EdgeInsets.fromLTRB(borderWidth, borderWidth, 0, 0),
+        // padding: EdgeInsets.fromLTRB(borderWidth, borderWidth, 0, 0),
         height: Device.getRpx(Device.size.width),
       ),
     );
