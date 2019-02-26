@@ -1,3 +1,3 @@
 # flutter2048
 
-本来做的好好的react native因为特殊原因弃了
+本来用react native因为特殊原因弃了
