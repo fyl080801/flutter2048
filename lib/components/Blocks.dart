@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hello/utils/Device.dart';
 import '../utils/Screen.dart';
 
 class Blocks extends StatelessWidget {
@@ -12,9 +13,10 @@ class Blocks extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Positioned(
-          child: Text('aaa'),
-        )
+        Container(
+          height: Device.getRpx(Device.size.width),
+        ),
+        Positioned(top: 10.0, left: 10.0, child: Text('aaa'))
       ],
     );
   }
