@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hello/utils/Screen.dart';
 import '../model/GameStatus.dart';
 import './NumberElement.dart';
 
@@ -8,28 +9,44 @@ class NumberBlock extends StatefulWidget {
   final GameStatus status;
 
   @override
-  State<StatefulWidget> createState() => NumberBlockState(status: status);
+  State<StatefulWidget> createState() => NumberBlockState();
 }
 
 class NumberBlockState extends State<NumberBlock>
-    with SingleTickerProviderStateMixin {
-  NumberBlockState({this.status});
-
-  GameStatus status;
+    with TickerProviderStateMixin {
   AnimationController controller;
-  Animation animation;
+  Animation<double> animation;
 
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(vsync: this);
+    controller =
+        AnimationController(duration: Duration(milliseconds: 250), vsync: this);
+    animation = Tween<double>(begin: 0, end: 50).animate(controller);
+    controller.forward();
   }
 
   @override
   Widget build(BuildContext context) {
-    return NumberElement(
-      status: status,
+    setState(() {
+      controller = AnimationController(
+          duration: Duration(milliseconds: 250), vsync: this);
+      animation = Tween<double>(
+        begin: 0,
+        end: Screen.getBlockWidth(widget.status.gameType) +
+            Screen.getBorderWidth(widget.status.gameType),
+      ).animate(controller);
+      controller.forward();
+    });
+    return new NumberElement(
       animation: animation,
+      status: widget.status,
     );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }

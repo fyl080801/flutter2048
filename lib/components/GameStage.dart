@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import './Blocks.dart';
 import './TypeSelector.dart';
 import './GameBg.dart';
 import './Playground.dart';
@@ -48,14 +49,14 @@ class GameStageState extends State<GameStage> {
               GameBg(
                 gameType: status.gameType,
               ),
-              // Blocks(
-              //   gameType: status.gameType,
-              // ),
+              Blocks(
+                status: status,
+              ),
               Playground(
                 gameType: status.gameType,
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
