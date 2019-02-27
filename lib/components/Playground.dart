@@ -7,6 +7,7 @@ import '../utils/Device.dart';
 const pressTimeout = 200;
 const dragLength = 300;
 
+/// 用于响应交互操作
 class Playground extends StatelessWidget {
   Playground(
       {Key key,

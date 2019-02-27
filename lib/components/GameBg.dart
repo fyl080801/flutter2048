@@ -7,6 +7,8 @@ class GameBg extends StatelessWidget {
 
   final int gameType;
 
+  // final Function createBlock;
+
   double get borderWidth => Screen.getBorderWidth(gameType);
 
   @override
@@ -34,6 +36,18 @@ getGrid(int gameType, borderWidth) {
               border: Border.all(color: Colors.transparent, width: 0),
               borderRadius: BorderRadius.circular(5)),
           margin: EdgeInsets.fromLTRB(0, 0, borderWidth, borderWidth),
+          // child: createBlock(),
+          // child: Stack(
+          //   // 作为区块
+          //   children: <Widget>[
+          //     Container(),
+          //     Positioned(
+          //       top: 0,
+          //       left: 0,
+          //       child: Text('aaa'),
+          //     )
+          //   ],
+          // ),
         ),
       ));
     }
