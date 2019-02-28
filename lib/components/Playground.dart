@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hello/model/TapStatus.dart';
 import '../utils/Screen.dart';
-import '../utils/Device.dart';
 
 const pressTimeout = 200;
 const dragLength = 300;

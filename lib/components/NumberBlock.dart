@@ -27,6 +27,16 @@ class NumberBlockState extends State<NumberBlock>
   }
 
   @override
+  void setState(fn) {
+    super.setState(fn);
+
+    controller =
+        AnimationController(duration: Duration(milliseconds: 250), vsync: this);
+    animation = Tween<double>(begin: 0, end: 50).animate(controller);
+    controller.forward();
+  }
+
+  @override
   Widget build(BuildContext context) {
     setState(() {
       controller = AnimationController(
