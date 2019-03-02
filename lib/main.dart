@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewScaffold(
       children: <Widget>[
-        GameStage(status: status),
+        GameStage(),
       ],
     );
   }
