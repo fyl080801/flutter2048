@@ -1,4 +1,4 @@
-import 'package:flutter_hello/store/GameState.dart';
+import 'package:flutter2048/store/GameState.dart';
 
 class MoveLeftAction {}
 

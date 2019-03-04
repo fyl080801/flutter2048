@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_hello/model/TapStatus.dart';
+import 'package:flutter2048/model/TapStatus.dart';
 import '../utils/Screen.dart';
 
 const pressTimeout = 200;

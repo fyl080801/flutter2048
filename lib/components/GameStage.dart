@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hello/components/ModeSelector.dart';
-import 'package:flutter_hello/constants/Display.dart';
-import 'package:flutter_hello/reducers/index.dart';
-import 'package:flutter_hello/store/GameState.dart';
+import 'package:flutter2048/components/GameBg.dart';
+import 'package:flutter2048/components/ModeSelector.dart';
+import 'package:flutter2048/constants/Display.dart';
+import 'package:flutter2048/reducers/index.dart';
+import 'package:flutter2048/store/GameState.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
@@ -12,18 +13,13 @@ class GameStage extends StatelessWidget {
     return StoreProvider(
       store: Store<GameState>(gameReducer, initialState: GameState.initial()),
       child: Container(
-        margin: EdgeInsets.all(Display.borderSize),
+        margin: EdgeInsets.all(Display.borderMargin),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             ModeSelector(),
-            StoreConnector<GameState, int>(
-              converter: (store) => store.state.mode,
-              builder: (context, vm) {
-                return Text(vm.toString());
-              },
-            )
+            GameBg(),
           ],
         ),
       ),

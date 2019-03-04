@@ -1,4 +1,4 @@
-package com.example.flutter_hello;
+package com.example.flutter2048;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

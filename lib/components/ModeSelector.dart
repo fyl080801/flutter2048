@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hello/reducers/restart.dart';
-import 'package:flutter_hello/store/GameState.dart';
+import 'package:flutter2048/reducers/restart.dart';
+import 'package:flutter2048/store/GameState.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 class ModeSelector extends StatelessWidget {

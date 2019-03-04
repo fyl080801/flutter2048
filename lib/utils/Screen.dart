@@ -1,9 +1,11 @@
+import 'package:flutter2048/constants/Display.dart';
+
 import './Device.dart';
 
 class Screen {
   /// 随着大小间距变化
   static double getBorderWidth(int gameType) {
-    return double.parse((2.5 / gameType).toStringAsFixed(2)) * 10;
+    return Display.spacerUnit / gameType * Display.borderMargin;
   }
 
   static double getBlockWidth(int gameType) {
@@ -11,7 +13,6 @@ class Screen {
         gameType;
   }
 
-  static double get margin => 10;
-
-  static double get stageWidth => Device.getRpx(Device.size.width) - margin * 2;
+  static double get stageWidth =>
+      Device.getRpx(Device.size.width) - Display.borderMargin * 2;
 }
