@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter2048/reducers/restart.dart';
-import 'package:flutter2048/store/GameState.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import '../reducers/restart.dart';
+import '../store/GameState.dart';
 
 class ModeSelector extends StatelessWidget {
   @override
@@ -9,10 +9,9 @@ class ModeSelector extends StatelessWidget {
     return StoreConnector<GameState, ModeSelectorProps>(
       converter: (store) {
         return ModeSelectorProps(
-            mode: store.state.mode,
-            onChange: (int mode) {
-              store.dispatch(GameRestartAction(mode));
-            });
+          mode: store.state.mode,
+          onChange: (mode) => store.dispatch(GameRestartAction(mode)),
+        );
       },
       builder: (context, vm) {
         return Container(
@@ -20,27 +19,19 @@ class ModeSelector extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               RaisedButton(
-                onPressed: () {
-                  vm.onChange(4);
-                },
+                onPressed: () => vm.onChange(4),
                 child: Text('4'),
               ),
               RaisedButton(
-                onPressed: () {
-                  vm.onChange(6);
-                },
+                onPressed: () => vm.onChange(6),
                 child: Text('6'),
               ),
               RaisedButton(
-                onPressed: () {
-                  vm.onChange(8);
-                },
+                onPressed: () => vm.onChange(8),
                 child: Text('8'),
               ),
               RaisedButton(
-                onPressed: () {
-                  vm.onChange(10);
-                },
+                onPressed: () => vm.onChange(10),
                 child: Text('10'),
               )
             ],

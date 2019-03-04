@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter2048/utils/Screen.dart';
+import '../utils/Screen.dart';
 import '../model/GameStatus.dart';
 import './NumberElement.dart';
 

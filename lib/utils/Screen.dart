@@ -1,4 +1,4 @@
-import 'package:flutter2048/constants/Display.dart';
+import '../constants/Display.dart';
 
 import './Device.dart';
 

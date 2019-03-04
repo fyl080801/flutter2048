@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter2048/store/GameState.dart';
-import 'package:flutter2048/utils/Screen.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import '../store/GameState.dart';
+import '../utils/Screen.dart';
 
-class GameBg extends StatelessWidget {
+class GameBg extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => GameBgState();
+}
+
+class GameBgState extends State<StatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<GameState, GameBgProps>(

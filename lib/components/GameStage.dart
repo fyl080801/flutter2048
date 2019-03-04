@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter2048/components/GameBg.dart';
-import 'package:flutter2048/components/ModeSelector.dart';
-import 'package:flutter2048/constants/Display.dart';
-import 'package:flutter2048/reducers/index.dart';
-import 'package:flutter2048/store/GameState.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+import './GameBg.dart';
+import './ModeSelector.dart';
+import './Playground.dart';
+import '../constants/Display.dart';
+import '../reducers/index.dart';
+import '../store/GameState.dart';
 
 class GameStage extends StatelessWidget {
   @override
@@ -19,7 +20,23 @@ class GameStage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             ModeSelector(),
-            GameBg(),
+            // Container(
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: <Widget>[
+            //       Container(
+            //         child: Text(status.scores.toString()),
+            //       ),
+            //       Container()
+            //     ],
+            //   ),
+            // ),
+            Stack(
+              children: <Widget>[
+                GameBg(),
+                Playground(),
+              ],
+            ),
           ],
         ),
       ),
@@ -53,17 +70,7 @@ class GameStage extends StatelessWidget {
 //             // 模式选择
 //             onTypeChanged: setGameType,
 //           ),
-//           Container(
-//             child: Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: <Widget>[
-//                 Container(
-//                   child: Text(status.scores.toString()),
-//                 ),
-//                 Container()
-//               ],
-//             ),
-//           ),
+
 //           Stack(
 //             // 交互区
 //             children: <Widget>[
