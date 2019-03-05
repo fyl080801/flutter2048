@@ -18,6 +18,7 @@ class GameBgState extends State<StatefulWidget> {
             mode: store.state.mode,
           ),
       builder: (context, vm) {
+        var collection = getGrid(vm);
         return Container(
           padding: EdgeInsets.fromLTRB(vm.borderWidth, vm.borderWidth, 0, 0),
           decoration: BoxDecoration(
@@ -25,7 +26,7 @@ class GameBgState extends State<StatefulWidget> {
             border: Border.all(color: Colors.transparent, width: 0),
             borderRadius: BorderRadius.circular(5),
           ),
-          child: getGrid(vm),
+          child: collection, //getGrid(vm),
         );
       },
     );
