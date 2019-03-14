@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter2048/components/block/BaseBlock.dart';
 
-class IncreaseBlock extends BaseBlock {
+class MoveIncreaseBlock extends BaseBlock {
   @override
   Widget build(BuildContext context) {
     return null;

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter2048/components/block/BaseBlock.dart';
 
-class MoveBlock extends AnimatedWidget {
-  MoveBlock({Key key, Animation<double> animation})
-      : super(key: key, listenable: animation);
+class MoveBlock extends BaseBlock {
+  // MoveBlock({Key key, Animation<double> animation})
+  //     : super(key: key, listenable: animation);
 
   @override
   Widget build(BuildContext context) {

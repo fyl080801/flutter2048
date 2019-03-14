@@ -4,5 +4,5 @@ class MoveRightAction {}
 
 GameState moveRight(GameState state, MoveRightAction action) {
   print('** moveright');
-  return GameState();
+  return GameState(status: state.status, data: state.data, mode: state.mode);
 }

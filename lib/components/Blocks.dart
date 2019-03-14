@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter2048/components/BlockContainer.dart';
+import 'package:flutter2048/service/BlockFactory.dart';
+import 'package:flutter2048/store/BlockInfo.dart';
 import 'package:flutter2048/store/GameState.dart';
+import 'package:flutter2048/utils/Screen.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import '../utils/Screen.dart';
 
 class Blocks extends StatefulWidget {
   @override
@@ -10,29 +11,21 @@ class Blocks extends StatefulWidget {
 }
 
 class BlocksState extends State<Blocks> with TickerProviderStateMixin {
-  AnimationController increaseController;
-  AnimationController addController;
-  AnimationController moveController;
+  BlockFactory blockFactory;
 
   @override
   Widget build(BuildContext context) {
     return StoreConnector<GameState, BlocksProps>(
       converter: (store) => BlocksProps(
             data: store.state.data,
+            mode: store.state.mode,
             padding: Screen.getBorderWidth(store.state.mode),
           ),
+      onDidChange: (props) {
+        blockFactory.play();
+      },
       builder: (context, props) {
-        increaseController = AnimationController(
-            duration: const Duration(milliseconds: 50), vsync: this);
-        addController = AnimationController(
-            duration: const Duration(milliseconds: 80), vsync: this);
-        moveController = AnimationController(
-            duration: const Duration(milliseconds: 100), vsync: this);
-
-        moveController.forward().whenComplete(() {
-          addController.forward();
-          increaseController.forward();
-        });
+        blockFactory = BlockFactory(props.mode, this);
 
         return Container(
           width: Screen.stageWidth,
@@ -49,27 +42,18 @@ class BlocksState extends State<Blocks> with TickerProviderStateMixin {
 
   getBlocks(BlocksProps props) {
     var blocks = <Widget>[];
-    for (var i = 0; i < props.data.length; i++) {
-      for (var j = 0; j < props.data[i].length; j++) {
-        if (props.data[i][j] != 0) {
-          blocks.add(BlockContainer(
-            x: i,
-            y: j,
-            type: 0,
-            addController: addController,
-            increaseController: increaseController,
-          ));
-        }
-      }
-    }
+
+    props.data.forEach((item) {
+      blocks.add(blockFactory.create(item));
+    });
     return blocks;
   }
 }
 
 class BlocksProps {
-  // int mode;
+  int mode;
   double padding;
-  List<List<int>> data;
+  List<BlockInfo> data;
 
-  BlocksProps({this.padding, this.data});
+  BlocksProps({this.padding, this.mode, this.data});
 }

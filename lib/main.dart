@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import './components/GameStage.dart';
 import './components/ViewScaffold.dart';
-import './model/GameStatus.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,8 +13,6 @@ void main() => runApp(MyApp());
  * ************************************************************/
 
 class MyApp extends StatelessWidget {
-  final GameStatus status = new GameStatus();
-
   @override
   Widget build(BuildContext context) {
     return ViewScaffold(
