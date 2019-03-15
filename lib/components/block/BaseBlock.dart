@@ -1,16 +1,39 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter2048/store/BlockInfo.dart';
+import 'package:flutter2048/store/GameState.dart';
 import 'package:flutter2048/utils/Screen.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
 abstract class BaseBlock extends AnimatedWidget {
-  final int mode;
+  final BlockInfo info;
 
-  double get blockWidth => Screen.getBlockWidth(this.mode);
-  double get borderWidth => Screen.getBorderWidth(this.mode);
-  double get width => blockWidth + borderWidth;
-
-  BaseBlock({Key key, this.mode, Animation<double> animation})
+  BaseBlock({Key key, this.info, Animation<double> animation})
       : super(
           key: key,
           listenable: animation,
         );
+
+  @override
+  Widget build(BuildContext context) {
+    return StoreConnector<GameState, BlockProps>(
+      converter: (store) => BlockProps(
+            blockWidth: Screen.getBlockWidth(store.state.mode),
+            borderWidth: Screen.getBorderWidth(store.state.mode),
+          ),
+      builder: buildBlock,
+    );
+  }
+
+  @protected
+  Widget buildBlock(
+    BuildContext context,
+    BlockProps props,
+  );
+}
+
+class BlockProps {
+  double blockWidth;
+  double borderWidth;
+
+  BlockProps({this.blockWidth, this.borderWidth});
 }

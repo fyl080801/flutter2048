@@ -3,7 +3,7 @@ import 'package:flutter2048/components/block/BaseBlock.dart';
 
 class IncreaseBlock extends BaseBlock {
   @override
-  Widget build(BuildContext context) {
+  Widget buildBlock(BuildContext context, BlockProps props) {
     return null;
   }
 }

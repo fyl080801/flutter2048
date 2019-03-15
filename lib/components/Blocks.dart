@@ -21,12 +21,13 @@ class BlocksState extends State<Blocks> with TickerProviderStateMixin {
             mode: store.state.mode,
             padding: Screen.getBorderWidth(store.state.mode),
           ),
-      onDidChange: (props) {
-        blockFactory.play();
-      },
-      builder: (context, props) {
-        blockFactory = BlockFactory(props.mode, this);
+      // onDidChange: (props) {
+      //   blockFactory.play();
+      // },
 
+      builder: (context, props) {
+        blockFactory = BlockFactory(this);
+        blockFactory.play();
         return Container(
           width: Screen.stageWidth,
           height: Screen.stageWidth,
@@ -42,9 +43,12 @@ class BlocksState extends State<Blocks> with TickerProviderStateMixin {
 
   getBlocks(BlocksProps props) {
     var blocks = <Widget>[];
-
-    props.data.forEach((item) {
-      blocks.add(blockFactory.create(item));
+    props.data.forEach((row) {
+      row.forEach((block) {
+        if (block.value != 0) {
+          blocks.add(blockFactory.create(block));
+        }
+      });
     });
     return blocks;
   }
@@ -53,7 +57,7 @@ class BlocksState extends State<Blocks> with TickerProviderStateMixin {
 class BlocksProps {
   int mode;
   double padding;
-  List<BlockInfo> data;
+  List<List<BlockInfo>> data;
 
   BlocksProps({this.padding, this.mode, this.data});
 }
