@@ -60,6 +60,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutterautotext:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: edc93450782282315a05298e0e55bbed24112126
+      url: "https://github.com/LiuC520/flutterautotext.git"
+    source: git
+    version: "0.0.1"
   matcher:
     dependency: transitive
     description:

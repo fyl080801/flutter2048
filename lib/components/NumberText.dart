@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterautotext/flutterautotext.dart';
 
 class NumberText extends StatelessWidget {
   final int value;
@@ -17,10 +18,17 @@ class NumberText extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
       ),
       child: Center(
-          child: Text(
-        this.value.toString(),
-        style: TextStyle(color: Color(0xff776e65)),
-      )),
+        child: FlutterAutoText(
+          width: size,
+          text: this.value.toString(),
+          textStyle: TextStyle(color: Color(0xff776e65)),
+          textSize: 40,
+        ),
+        // child: Text(
+        //   this.value.toString(),
+        //   style: TextStyle(color: Color(0xff776e65)),
+        // ),
+      ),
     );
   }
 }
