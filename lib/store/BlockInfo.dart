@@ -1,5 +1,5 @@
 class BlockInfo {
-  BlockInfo({this.value, this.current}) {
+  BlockInfo({this.value, this.current, this.isNew = true}) {
     this.before = this.current;
   }
 
@@ -8,7 +8,7 @@ class BlockInfo {
   int before;
   bool needMove = false;
   bool needCombine = false;
-  bool isNew = true;
+  bool isNew = false;
 
   void reset() {
     value = 0;

@@ -3,7 +3,7 @@ import 'package:flutter2048/store/GameState.dart';
 class MoveRightAction {}
 
 GameState moveRight(GameState state, MoveRightAction action) {
-  if (state.status.end) return state;
+  if (state.status.end) return state.clone();
 
   var clonestate = state.clone();
   int i, j, k;

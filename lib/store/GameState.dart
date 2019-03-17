@@ -73,22 +73,33 @@ class GameState {
       newblock.before = newblock.current = newpos;
       newblock.isNew = true;
       newblock.needCombine = newblock.needMove = false;
+    }
 
-      // 检测
-      status.end = true;
-      for (int i = 0; i < mode; i++) {
-        for (int j = 0; j < mode; j++) {
-          if (j != mode - 1 &&
-              getBlock(i, j).value == getBlock(i, j + 1).value) {
-            status.end = false;
-          }
-          if (i != mode - 1 &&
-              getBlock(i, j).value == getBlock(i + 1, j).value) {
-            status.end = false;
-          }
+    // 检测
+    status.end = false;
+    if (count <= 1) {
+      status.end = isEnd();
+    }
+  }
+
+  bool isEnd() {
+    int i, j;
+    for (i = 0; i < mode; i++) {
+      for (j = 0; j < mode - 1; j++) {
+        if (data[i][j].value == data[i][j + 1].value) {
+          return false;
         }
       }
     }
+
+    for (j = 0; j < mode; j++) {
+      for (i = 0; i < mode - 1; i++) {
+        if (data[i][j].value == data[i + 1][j].value) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   int getBlankPosition(int blank) {
@@ -125,6 +136,7 @@ class GameState {
         row.add(BlockInfo(
           current: data[i][j].current,
           value: data[i][j].value,
+          isNew: false,
         ));
       }
       newdata.add(row);
