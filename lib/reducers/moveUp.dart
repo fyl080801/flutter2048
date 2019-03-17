@@ -3,10 +3,13 @@ import 'package:flutter2048/store/GameState.dart';
 class MoveUpAction {}
 
 GameState moveUp(GameState state, MoveUpAction action) {
-  print('up');
+  if (state.status.end) return state;
+
   var clonestate = state.clone();
   int i, j, k;
   bool isMoved = false;
+  bool haveMove = false;
+  bool haveCombin = false;
   for (i = 0; i < clonestate.mode; i++) {
     j = k = 0;
     while (true) {
@@ -14,7 +17,7 @@ GameState moveUp(GameState state, MoveUpAction action) {
       if (j > clonestate.mode - 1) break;
 
       if (j > k) {
-        isMoved = true;
+        isMoved = haveMove = true;
         var block = clonestate.getBlock(j, i);
         block.needMove = true;
         block.needCombine = false;
@@ -30,8 +33,10 @@ GameState moveUp(GameState state, MoveUpAction action) {
         prevBlock.before =
             isMoved ? currentBlock.before : (k * clonestate.mode + i);
         prevBlock.current = (k - 1) * clonestate.mode + i;
+        prevBlock.needMove = true;
+        prevBlock.needCombine = haveCombin = true;
         prevBlock.value <<= 1;
-        // updateCurScoresAndHistoryScores(numberkl.mScores);
+        clonestate.status.scores += prevBlock.value;
         currentBlock.reset();
         currentBlock.current = currentBlock.before = k * clonestate.mode + i;
       } else {
@@ -41,5 +46,8 @@ GameState moveUp(GameState state, MoveUpAction action) {
     }
   }
 
+  if (haveMove || haveCombin) {
+    clonestate.update();
+  }
   return clonestate;
 }

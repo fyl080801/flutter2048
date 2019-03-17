@@ -11,7 +11,7 @@ class GameState {
   List<List<BlockInfo>> data;
 
   static GameState initial(int mode) {
-    var random = new Random();
+    var random = new Random(DateTime.now().millisecondsSinceEpoch);
     var gamesize = mode * mode;
     var block1 = random.nextInt(gamesize);
     var block2 = random.nextInt(gamesize);
@@ -49,27 +49,57 @@ class GameState {
     return this.data[i][j];
   }
 
-  int blankCount() {
+  void update() {
+    // 获取空格数, 将上一次的所有格子设成旧的
     int count = 0;
     for (var i = 0; i < mode; i++) {
       for (var j = 0; j < mode; j++) {
-        if (data[i][j].value == 0) {
+        var block = getBlock(i, j);
+        block.isNew = false;
+        if (block.value == 0) {
           count++;
         }
       }
     }
-    return count;
+
+    // 有空格
+    if (count > 0) {
+      // 生成新的数字
+      var random = new Random(DateTime.now().millisecondsSinceEpoch);
+      var newpos = getBlankPosition(random.nextInt(count));
+
+      var newblock = getBlock(newpos ~/ mode, newpos % mode);
+      newblock.value = (random.nextInt(2) + 1) * 2;
+      newblock.before = newblock.current = newpos;
+      newblock.isNew = true;
+      newblock.needCombine = newblock.needMove = false;
+
+      // 检测
+      status.end = true;
+      for (int i = 0; i < mode; i++) {
+        for (int j = 0; j < mode; j++) {
+          if (j != mode - 1 &&
+              getBlock(i, j).value == getBlock(i, j + 1).value) {
+            status.end = false;
+          }
+          if (i != mode - 1 &&
+              getBlock(i, j).value == getBlock(i + 1, j).value) {
+            status.end = false;
+          }
+        }
+      }
+    }
   }
 
-  int getBlank(int blank) {
-    int count = 0;
+  int getBlankPosition(int blank) {
+    var index = 0;
     for (int i = 0; i < mode; i++) {
       for (int j = 0; j < mode; j++) {
-        if (data[i][j].value == 0) {
-          if (count == blank) {
+        if (getBlock(i, j).value == 0) {
+          if (index == blank) {
             return i * mode + j;
           } else {
-            count++;
+            index++;
           }
         }
       }
@@ -111,90 +141,4 @@ class GameState {
       ),
     );
   }
-
-  // static GameState update(
-  //   GameState state,
-  //   Function move,
-  //   Function add,
-  // ) {
-  //   if (state.status.end) return state;
-
-  //   var copydata = state.cloneData();
-  //   var copystatus = state.cloneStatus();
-
-  //   move(copydata, state.mode, copystatus);
-  //   add(copydata, state.mode, copystatus);
-
-  //   if (copystatus.adds > 0 || copystatus.moves > 0) {
-  //     copystatus.end = true;
-  //     var empty = new List<BlockInfo>();
-  //     for (var i = 0; i < state.mode; i++) {
-  //       for (var j = 0; j < state.mode; j++) {
-  //         if (copydata[i][j].isEmpty()) {
-  //           empty.add(copydata[i][j]);
-  //         }
-  //       }
-  //     }
-
-  //     if (empty.length > 0) {
-  //       var random = new Random();
-  //       empty[random.nextInt(empty.length)].value = 2;
-  //     }
-
-  //     if (empty.length <= 1) {
-  //       int i, j;
-  //       for (i = 0; i < state.mode; i++) {
-  //         for (j = 0; j < state.mode - 1; j++) {
-  //           if (copydata[i][j].check(copydata[i][j + 1])) {
-  //             copystatus.end = false;
-  //             break;
-  //           }
-  //         }
-  //       }
-
-  //       for (j = 0; j < state.mode; j++) {
-  //         for (i = 0; i < state.mode - 1; i++) {
-  //           if (copydata[i][j].check(copydata[i + 1][j])) {
-  //             copystatus.end = false;
-  //             break;
-  //           }
-  //         }
-  //       }
-  //     } else {
-  //       copystatus.end = false;
-  //     }
-  //   }
-  //   return GameState(
-  //     data: copydata,
-  //     mode: state.mode,
-  //     status: copystatus,
-  //   );
-  // }
-
-  // List<List<BlockInfo>> cloneData() {
-  //   var copydata = new List<List<BlockInfo>>();
-  //   this.data.forEach((row) {
-  //     var newrow = List<BlockInfo>();
-  //     row.forEach((info) {
-  //       newrow.add(
-  //         BlockInfo(
-  //           value: info.value,
-  //           x: info.x,
-  //           y: info.y,
-  //         ),
-  //       );
-  //     });
-  //     copydata.add(newrow);
-  //   });
-  //   return copydata;
-  // }
-
-  // GameStatus cloneStatus() {
-  //   return GameStatus(
-  //     adds: 0,
-  //     moves: 0,
-  //     scores: this.status.scores,
-  //     end: this.status.end,
-  //   );
-  // }
 }

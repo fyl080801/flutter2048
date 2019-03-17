@@ -1,53 +1,65 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter2048/components/block/CombinBlock.dart';
+import 'package:flutter2048/components/block/MoveBlock.dart';
 import 'package:flutter2048/components/block/NewBlock.dart';
+import 'package:flutter2048/components/block/StaticBlock.dart';
 import 'package:flutter2048/store/BlockInfo.dart';
 
 class BlockFactory {
-  AnimationController increaseController;
+  AnimationController combinController;
   AnimationController addController;
   AnimationController moveController;
+  int _mode;
 
-  BlockFactory(TickerProvider provider) {
-    increaseController = AnimationController(
-        duration: const Duration(milliseconds: 50), vsync: provider);
+  BlockFactory(TickerProvider provider, int mode) {
+    combinController = AnimationController(
+        duration: const Duration(milliseconds: 60), vsync: provider);
     addController = AnimationController(
         duration: const Duration(milliseconds: 80), vsync: provider);
     moveController = AnimationController(
-        duration: const Duration(milliseconds: 100), vsync: provider);
+        duration: const Duration(milliseconds: 80), vsync: provider);
+    _mode = mode;
   }
 
   Widget create(BlockInfo info) {
-    // 四种情况的不同创建方法和行为
-    // 新建:直接从无到有的动画
-    // 单合并:元素不动，单建一个上一个状态的方块做移动，之后本身做一个缩放动画
-    // 移动合并:两个元素，传两个controller，本身先移动，到位置后缩放，另一个直接移动到最终位置
-    // 单移动:从开始位置移到最终位置
-    // if (info.prevValue == null) {
-    //   // 新
+    if (info.isNew) {
+      return NewBlock(
+        info: info,
+        controller: this.addController,
+      );
+    }
 
-    // } else if (info.currentValue != info.prevValue) {
-    //   // 合并
-    // }
-    return NewBlock(
+    if (info.needCombine) {
+      return CombinBlock(info: info, controller: combinController);
+    }
+
+    if (info.needMove && info.needCombine != true) {
+      var currentY = info.current ~/ _mode;
+      var currentX = info.current % _mode;
+      var beforeY = info.before ~/ _mode;
+      var beforeX = info.before % _mode;
+      var direction = currentX == beforeX ? 1 : 0;
+      return MoveBlock(
+          info: info,
+          direction: direction,
+          begin:
+              (direction == 0 ? beforeX - currentX : beforeY - currentY) * 1.0,
+          controller: moveController);
+    }
+
+    return StaticBlock(
       info: info,
       controller: this.addController,
     );
-
-    // if (info.from.x == info.x && info.from.y == info.y) {}
-
-    // if (info.from.x == info.x &&
-    //     info.from.y == info.y &&
-    //     info.from.value == info.value) {}
-    // return StaticBlock(info: info);
-
-    // return null;
   }
 
   play() {
     moveController.forward().whenComplete(() {
       addController.forward();
-      increaseController.forward();
+      combinController.forward().whenComplete(() {
+        combinController.reverse();
+      });
     });
   }
 }

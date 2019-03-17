@@ -3,16 +3,16 @@ import 'package:flutter2048/components/NumberText.dart';
 import 'package:flutter2048/components/block/BaseBlock.dart';
 import 'package:flutter2048/store/BlockInfo.dart';
 
-class NewBlock extends BaseBlock {
+class CombinBlock extends BaseBlock {
   final BlockInfo info;
 
-  NewBlock({
+  CombinBlock({
     Key key,
     this.info,
     AnimationController controller,
   }) : super(
           key: key,
-          animation: new Tween<double>(begin: 0.0, end: 1).animate(controller),
+          animation: Tween<double>(begin: 1, end: 1.25).animate(controller),
         );
 
   @override

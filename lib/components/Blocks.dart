@@ -11,7 +11,7 @@ class Blocks extends StatefulWidget {
 }
 
 class BlocksState extends State<Blocks> with TickerProviderStateMixin {
-  BlockFactory blockFactory;
+  // BlockFactory blockFactory;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class BlocksState extends State<Blocks> with TickerProviderStateMixin {
       // },
 
       builder: (context, props) {
-        blockFactory = BlockFactory(this);
+        var blockFactory = BlockFactory(this, props.mode);
         blockFactory.play();
         return Container(
           width: Screen.stageWidth,
@@ -34,14 +34,14 @@ class BlocksState extends State<Blocks> with TickerProviderStateMixin {
           padding: EdgeInsets.fromLTRB(props.padding, props.padding, 0, 0),
           child: Stack(
             fit: StackFit.expand,
-            children: getBlocks(props),
+            children: getBlocks(blockFactory, props),
           ),
         );
       },
     );
   }
 
-  getBlocks(BlocksProps props) {
+  getBlocks(BlockFactory blockFactory, BlocksProps props) {
     var blocks = <Widget>[];
     props.data.forEach((row) {
       row.forEach((block) {

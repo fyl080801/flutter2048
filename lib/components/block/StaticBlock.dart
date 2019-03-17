@@ -1,33 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter2048/components/NumberText.dart';
 import 'package:flutter2048/components/block/BaseBlock.dart';
 import 'package:flutter2048/store/BlockInfo.dart';
 
-class NewBlock extends BaseBlock {
+class StaticBlock extends BaseBlock {
   final BlockInfo info;
 
-  NewBlock({
+  StaticBlock({
     Key key,
     this.info,
     AnimationController controller,
   }) : super(
           key: key,
-          animation: new Tween<double>(begin: 0.0, end: 1).animate(controller),
+          animation:
+              new Tween<double>(begin: 0.0, end: 0.0).animate(controller),
         );
 
   @override
   Widget buildBlock(BuildContext context, BlockProps props) {
-    Animation<double> animation = listenable;
     return Positioned(
       top:
           (info.current ~/ props.mode) * (props.blockWidth + props.borderWidth),
       left:
           (info.current % props.mode) * (props.blockWidth + props.borderWidth),
-      child: Transform.scale(
-        scale: animation.value,
-        origin: Offset(0.5, 0.5),
-        child: NumberText(value: this.info.value, size: props.blockWidth),
-      ),
+      child: NumberText(value: this.info.value, size: props.blockWidth),
     );
+    ;
   }
 }

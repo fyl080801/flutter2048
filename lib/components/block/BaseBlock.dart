@@ -4,7 +4,7 @@ import 'package:flutter2048/utils/Screen.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 abstract class BaseBlock extends AnimatedWidget {
-  BaseBlock({Key key, Animation<double> animation})
+  BaseBlock({Key key, Animation animation})
       : super(
           key: key,
           listenable: animation,

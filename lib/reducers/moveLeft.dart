@@ -3,10 +3,13 @@ import 'package:flutter2048/store/GameState.dart';
 class MoveLeftAction {}
 
 GameState moveLeft(GameState state, MoveLeftAction action) {
-  print('left');
+  if (state.status.end) return state;
+
   var clonestate = state.clone();
   int i, j, k;
   bool isMoved = false;
+  bool haveMove = false;
+  bool haveCombin = false;
   for (i = 0; i < clonestate.mode; i++) {
     j = k = 0;
     while (true) {
@@ -14,7 +17,7 @@ GameState moveLeft(GameState state, MoveLeftAction action) {
       if (j > clonestate.mode - 1) break;
 
       if (j > k) {
-        isMoved = true;
+        isMoved = haveMove = true;
         var block = clonestate.getBlock(i, j);
         block.needMove = true;
         block.needCombine = false;
@@ -30,8 +33,10 @@ GameState moveLeft(GameState state, MoveLeftAction action) {
         prevBlock.before =
             isMoved ? currentBlock.before : (i * clonestate.mode + k);
         prevBlock.current = i * clonestate.mode + k - 1;
+        prevBlock.needMove = true;
+        prevBlock.needCombine = haveCombin = true;
         prevBlock.value <<= 1;
-        // updateCurScoresAndHistoryScores(numberkl.mScores);
+        clonestate.status.scores += prevBlock.value;
         currentBlock.reset();
         currentBlock.current = currentBlock.before = i * clonestate.mode + k;
       } else {
@@ -41,5 +46,8 @@ GameState moveLeft(GameState state, MoveLeftAction action) {
     }
   }
 
+  if (haveMove || haveCombin) {
+    clonestate.update();
+  }
   return clonestate;
 }
