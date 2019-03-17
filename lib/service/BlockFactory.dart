@@ -1,21 +1,14 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter2048/components/block/BaseBlock.dart';
 import 'package:flutter2048/components/block/NewBlock.dart';
-import 'package:flutter2048/components/block/StaticBlock.dart';
 import 'package:flutter2048/store/BlockInfo.dart';
 
 class BlockFactory {
-  // int gamemode;
-  // double blockWidth;
-  // double borderWidth;
   AnimationController increaseController;
   AnimationController addController;
   AnimationController moveController;
 
   BlockFactory(TickerProvider provider) {
-    // blockWidth = Screen.getBlockWidth(this.gamemode);
-    // borderWidth = Screen.getBorderWidth(this.gamemode);
     increaseController = AnimationController(
         duration: const Duration(milliseconds: 50), vsync: provider);
     addController = AnimationController(
@@ -36,19 +29,17 @@ class BlockFactory {
     // } else if (info.currentValue != info.prevValue) {
     //   // 合并
     // }
-    if (info.from == null) {
-      return NewBlock(
-        info: info,
-        controller: this.addController,
-      );
-    }
+    return NewBlock(
+      info: info,
+      controller: this.addController,
+    );
 
     // if (info.from.x == info.x && info.from.y == info.y) {}
 
     // if (info.from.x == info.x &&
     //     info.from.y == info.y &&
     //     info.from.value == info.value) {}
-    return StaticBlock(info: info);
+    // return StaticBlock(info: info);
 
     // return null;
   }

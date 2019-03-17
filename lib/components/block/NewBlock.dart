@@ -18,8 +18,10 @@ class NewBlock extends BaseBlock {
   Widget buildBlock(BuildContext context, BlockProps props) {
     Animation<double> animation = listenable;
     return Positioned(
-      top: this.info.y * (props.blockWidth + props.borderWidth),
-      left: this.info.x * (props.blockWidth + props.borderWidth),
+      top:
+          (info.current ~/ props.mode) * (props.blockWidth + props.borderWidth),
+      left:
+          (info.current % props.mode) * (props.blockWidth + props.borderWidth),
       child: Transform.scale(
         scale: animation.value,
         origin: Offset(0.5, 0.5),

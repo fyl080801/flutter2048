@@ -1,38 +1,45 @@
-import 'package:flutter2048/store/BlockInfo.dart';
 import 'package:flutter2048/store/GameState.dart';
-import 'package:flutter2048/store/GameStatus.dart';
 
 class MoveUpAction {}
 
 GameState moveUp(GameState state, MoveUpAction action) {
   print('up');
-  return GameState.update(state, move, add);
-}
+  var clonestate = state.clone();
+  int i, j, k;
+  bool isMoved = false;
+  for (i = 0; i < clonestate.mode; i++) {
+    j = k = 0;
+    while (true) {
+      while (j < clonestate.mode && clonestate.getBlock(j, i).value == 0) j++;
+      if (j > clonestate.mode - 1) break;
 
-void move(List<List<BlockInfo>> data, int mode, GameStatus status) {
-  int y, x, k;
-  for (y = 0; y < mode; y++) {
-    for (x = 1; x < mode; x++) {
-      k = x;
-      while (k - 1 >= 0 && data[y][k - 1].isEmpty()) {
-        if (!data[y][k].isEmpty() || !data[y][k - 1].isEmpty()) status.moves++;
-        data[y][k].swap(data[y][k - 1]);
-        k--;
+      if (j > k) {
+        isMoved = true;
+        var block = clonestate.getBlock(j, i);
+        block.needMove = true;
+        block.needCombine = false;
+        clonestate.swapBlock(k * clonestate.mode + i, j * clonestate.mode + i);
       }
+
+      if (k > 0 &&
+          clonestate.getBlock(k, i).value ==
+              clonestate.getBlock(k - 1, i).value &&
+          clonestate.getBlock(k - 1, i).needCombine != true) {
+        var currentBlock = clonestate.getBlock(k, i);
+        var prevBlock = clonestate.getBlock(k - 1, i);
+        prevBlock.before =
+            isMoved ? currentBlock.before : (k * clonestate.mode + i);
+        prevBlock.current = (k - 1) * clonestate.mode + i;
+        prevBlock.value <<= 1;
+        // updateCurScoresAndHistoryScores(numberkl.mScores);
+        currentBlock.reset();
+        currentBlock.current = currentBlock.before = k * clonestate.mode + i;
+      } else {
+        k++;
+      }
+      j++;
     }
   }
-}
 
-void add(List<List<BlockInfo>> data, int mode, GameStatus status) {
-  int y, x;
-  for (y = 0; y < mode; y++) {
-    for (x = 0; x < mode - 1; x++) {
-      if (data[y][x].check(data[y][x + 1])) {
-        data[y][x].combin(data[y][x + 1]);
-        status.scores += data[y][x].value;
-        status.adds++;
-        move(data, mode, status);
-      }
-    }
-  }
+  return clonestate;
 }
