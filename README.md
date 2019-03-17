@@ -1,3 +1,5 @@
 # flutter2048
 
-还差一些算法和变换动画相关问题，就快完成了
+已经完成了大部分功能，只剩下计分系统和细节优化
+
+![](https://ws2.sinaimg.cn/large/006tKfTcly1g164jzh780j30ku112jt0.jpg)
