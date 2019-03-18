@@ -1,35 +1,5 @@
 import 'package:flutter/material.dart';
 
-class NumberText extends StatelessWidget {
-  final int value;
-  final double size;
-
-  NumberText({this.value, this.size});
-
-  @override
-  Widget build(BuildContext context) {
-    var numberLength = this.value.toString().length;
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: styles[this.value]['background'],
-        border: Border.all(color: Colors.transparent, width: 0),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Center(
-        child: Text(
-          this.value.toString(),
-          style: TextStyle(
-            color: styles[this.value]['color'],
-            fontSize: size / (numberLength < 2 ? 2 : numberLength),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 var styles = {
   2: {
     "color": Color(0xff776e65),
@@ -75,3 +45,33 @@ var styles = {
     "background": Color(0xffedc22e),
   }
 };
+
+class NumberText extends StatelessWidget {
+  final int value;
+  final double size;
+
+  NumberText({this.value, this.size});
+
+  @override
+  Widget build(BuildContext context) {
+    var numberText = this.value.toString();
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: styles[this.value]['background'],
+        border: Border.all(color: Colors.transparent, width: 0),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Center(
+        child: Text(
+          numberText,
+          style: TextStyle(
+            color: styles[this.value]['color'],
+            fontSize: size / (numberText.length < 2 ? 2 : numberText.length),
+          ),
+        ),
+      ),
+    );
+  }
+}
