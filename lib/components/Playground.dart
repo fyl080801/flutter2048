@@ -17,6 +17,7 @@ class Playground extends StatelessWidget {
     return StoreConnector<GameState, PlaygroundProps>(
       converter: (store) {
         return PlaygroundProps(
+          end: store.state.status.end,
           mode: store.state.mode,
           startTime: 0,
           onDown: () => store.dispatch(MoveDownAction()),
@@ -26,16 +27,33 @@ class Playground extends StatelessWidget {
         );
       },
       builder: (context, props) {
-        return GestureDetector(
-          onHorizontalDragStart: (evt) => onDragStart(evt, props),
-          onHorizontalDragEnd: (evt) => onHorizontalDragEnd(evt, props),
-          onVerticalDragStart: (evt) => onDragStart(evt, props),
-          onVerticalDragEnd: (evt) => onVerticalDragEnd(evt, props),
-          child: Container(
-            color: Colors.transparent,
-            height: Screen.stageWidth,
-          ),
-        );
+        return props.end != true
+            ? GestureDetector(
+                onHorizontalDragStart: (evt) => onDragStart(evt, props),
+                onHorizontalDragEnd: (evt) => onHorizontalDragEnd(evt, props),
+                onVerticalDragStart: (evt) => onDragStart(evt, props),
+                onVerticalDragEnd: (evt) => onVerticalDragEnd(evt, props),
+                child: Container(
+                  color: Colors.transparent,
+                  height: Screen.stageWidth,
+                ),
+              )
+            : Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: Color.fromRGBO(255, 255, 255, 0.4)),
+                height: Screen.stageWidth,
+                child: Center(
+                  child: Text(
+                    'Game Over',
+                    style: TextStyle(
+                      fontSize: 50,
+                      color: Color(0xff776e65),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              );
       },
     );
   }
@@ -71,6 +89,7 @@ class Playground extends StatelessWidget {
 
 class PlaygroundProps {
   int mode;
+  bool end;
   int startTime;
   Function onLeft;
   Function onRight;
@@ -78,6 +97,7 @@ class PlaygroundProps {
   Function onDown;
 
   PlaygroundProps({
+    this.end,
     this.mode,
     this.startTime,
     this.onDown,
@@ -86,39 +106,3 @@ class PlaygroundProps {
     this.onUp,
   });
 }
-
-// /// 用于响应交互操作
-// class Playground extends StatelessWidget {
-//   Playground(
-//       {Key key,
-//       this.gameType,
-//       this.onRight,
-//       this.onLeft,
-//       this.onUp,
-//       this.onDown,
-//       this.onMoved})
-//       : super(key: key);
-
-//   final int gameType;
-//   final Function onRight;
-//   final Function onLeft;
-//   final Function onUp;
-//   final Function onDown;
-//   final Function onMoved;
-
-//   final TapStatus status = TapStatus();
-
-//   double get borderWidth => Screen.getBorderWidth(gameType);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onHorizontalDragStart: onDragStart,
-//       onHorizontalDragEnd: onHorizontalDragEnd,
-//       onVerticalDragStart: onDragStart,
-//       onVerticalDragEnd: onVerticalDragEnd,
-
-//     );
-//   }
-
-// }

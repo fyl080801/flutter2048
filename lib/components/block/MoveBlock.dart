@@ -4,30 +4,32 @@ import 'package:flutter2048/components/NumberText.dart';
 import 'package:flutter2048/components/block/BaseBlock.dart';
 import 'package:flutter2048/store/BlockInfo.dart';
 
+double getBegin(BlockInfo info, int mode) {
+  return (info.current % mode == info.before % mode
+          ? info.before ~/ mode - info.current ~/ mode
+          : info.before % mode - info.current % mode) *
+      1.0;
+}
+
 class MoveBlock extends BaseBlock {
   final BlockInfo info;
-  final int direction;
-  final double begin;
-  final double end;
+  final int mode;
 
   MoveBlock({
     Key key,
     this.info,
-    this.direction,
-    this.begin,
-    this.end,
+    this.mode,
     AnimationController controller,
   }) : super(
           key: key,
-          animation: Tween<double>(
-            begin: begin,
-            end: 0,
-          ).animate(controller),
+          animation: Tween<double>(begin: getBegin(info, mode), end: 0)
+              .animate(controller),
         );
 
   @override
   Widget buildBlock(BuildContext context, BlockProps props) {
     Animation<double> animation = listenable;
+    var direction = info.current % mode == info.before % mode ? 1 : 0;
     return Positioned(
       top:
           (info.current ~/ props.mode) * (props.blockWidth + props.borderWidth),

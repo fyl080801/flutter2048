@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter2048/components/Blocks.dart';
+import 'package:flutter2048/components/Scores.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import './GameBg.dart';
@@ -21,17 +22,7 @@ class GameStage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             ModeSelector(),
-            // Container(
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: <Widget>[
-            //       Container(
-            //         child: Text(status.scores.toString()),
-            //       ),
-            //       Container()
-            //     ],
-            //   ),
-            // ),
+            Scores(),
             Stack(
               children: <Widget>[
                 GameBg(),

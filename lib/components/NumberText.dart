@@ -23,7 +23,7 @@ var styles = Map.fromEntries([
   MapEntry(128,
       BlockStyle(textColor: Color(0xfff9f6f2), background: Color(0xffedcf72))),
   MapEntry(256,
-      BlockStyle(textColor: Color(0xfff9f6f2), background: Color(0xfff9f6f2))),
+      BlockStyle(textColor: Color(0xfff9f6f2), background: Color(0xffedcc61))),
   MapEntry(512,
       BlockStyle(textColor: Color(0xfff9f6f2), background: Color(0xffedc850))),
   MapEntry(1024,
@@ -45,7 +45,7 @@ class NumberText extends StatelessWidget {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: (this.value ~/ 2048) > 0
+        color: (this.value ~/ 2048) > 1
             ? styles[this.value ~/ 2048].background
             : styles[this.value].background,
         border: Border.all(color: Colors.transparent, width: 0),
@@ -55,10 +55,12 @@ class NumberText extends StatelessWidget {
         child: Text(
           numberText,
           style: TextStyle(
-            color: (this.value ~/ 2048) > 0
+            fontWeight: FontWeight.bold,
+            color: (this.value ~/ 2048) > 1
                 ? styles[this.value ~/ 2048].textColor
                 : styles[this.value].textColor,
-            fontSize: size / (numberText.length < 2 ? 2 : numberText.length),
+            fontSize:
+                size / (numberText.length <= 2 ? 2 : numberText.length * 0.8),
           ),
         ),
       ),

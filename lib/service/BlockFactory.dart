@@ -30,22 +30,17 @@ class BlockFactory {
       );
     }
 
-    if (info.needCombine) {
-      return CombinBlock(info: info, controller: combinController);
+    if (info.needMove && info.needCombine) {
+      return CombinBlock(
+        info: info,
+        mode: _mode,
+        combinController: combinController,
+        moveController: moveController,
+      );
     }
 
     if (info.needMove && info.needCombine != true) {
-      var currentY = info.current ~/ _mode;
-      var currentX = info.current % _mode;
-      var beforeY = info.before ~/ _mode;
-      var beforeX = info.before % _mode;
-      var direction = currentX == beforeX ? 1 : 0;
-      return MoveBlock(
-          info: info,
-          direction: direction,
-          begin:
-              (direction == 0 ? beforeX - currentX : beforeY - currentY) * 1.0,
-          controller: moveController);
+      return MoveBlock(info: info, mode: _mode, controller: moveController);
     }
 
     return StaticBlock(

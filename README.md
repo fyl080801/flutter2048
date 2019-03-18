@@ -1,5 +1,7 @@
 # flutter2048
 
-已经完成了大部分功能，只剩下计分系统和细节优化
+基于 flutter 开发的 2048 游戏，支持`3x3` `4x4` `6x6`三种模式
 
-![](https://ws2.sinaimg.cn/large/006tKfTcly1g164jzh780j30ku112jt0.jpg)
+仅用于学习交流
+
+![](https://ws2.sinaimg.cn/large/006tKfTcly1g17h09ve2yj30ku112jtl.jpg)

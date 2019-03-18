@@ -1,6 +1,6 @@
 class BlockInfo {
-  BlockInfo({this.value, this.current, this.isNew = true}) {
-    this.before = this.current;
+  BlockInfo({this.value, this.current, this.before, this.isNew = true}) {
+    this.before = this.before == null ? this.current : this.before;
   }
 
   int value;
