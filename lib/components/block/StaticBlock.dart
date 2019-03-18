@@ -26,6 +26,5 @@ class StaticBlock extends BaseBlock {
           (info.current % props.mode) * (props.blockWidth + props.borderWidth),
       child: NumberText(value: this.info.value, size: props.blockWidth),
     );
-    ;
   }
 }
