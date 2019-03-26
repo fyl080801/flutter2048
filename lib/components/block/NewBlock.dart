@@ -12,7 +12,7 @@ class NewBlock extends BaseBlock {
     AnimationController controller,
   }) : super(
           key: key,
-          animation: new Tween<double>(begin: 0.0, end: 1).animate(controller),
+          animation: new Tween<double>(begin: 0.1, end: 1.0).animate(controller),
         );
 
   @override
