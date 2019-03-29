@@ -18,7 +18,7 @@ class BlockFactory {
     addController = AnimationController(
         duration: const Duration(milliseconds: 80), vsync: provider);
     moveController = AnimationController(
-        duration: const Duration(milliseconds: 90), vsync: provider);
+        duration: const Duration(milliseconds: 95), vsync: provider);
     _mode = mode;
   }
 

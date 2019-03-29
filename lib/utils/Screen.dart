@@ -1,5 +1,4 @@
 import '../constants/Display.dart';
-
 import './Device.dart';
 
 class Screen {
@@ -13,6 +12,5 @@ class Screen {
         gameType;
   }
 
-  static double get stageWidth =>
-      Device.getRpx(Device.size.width) - Display.borderMargin * 2;
+  static double get stageWidth => Device.getWidth() - Display.borderMargin * 2;
 }

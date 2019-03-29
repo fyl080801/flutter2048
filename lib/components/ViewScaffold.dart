@@ -10,13 +10,15 @@ class ViewScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Material(
-          color: const Color(0xfffaf8ef),
-          child: SafeArea(
-              left: false,
-              right: false,
-              child: Stack(
-                children: children,
-              ))),
+        color: const Color(0xfffaf8ef),
+        child: SafeArea(
+          left: false,
+          right: false,
+          child: Stack(
+            children: children,
+          ),
+        ),
+      ),
     );
   }
 }

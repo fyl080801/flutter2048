@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import './components/GameStage.dart';
 import './components/ViewScaffold.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(GameApp());
 
-/* ************************************************************
- * 思路:
- * 1.根据游戏模式构建数据矩阵
- * 2.每个块作为一个对象处理数值变化
- * 3.块的数值变化产生一个事件，输出变化的初始状态和结束状态
- * 4.单独用动画组件响应事件画出对象和动画
- * ************************************************************/
+class GameApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => GameAppState();
+}
 
-class MyApp extends StatelessWidget {
+class GameAppState extends State<GameApp> {
   @override
   Widget build(BuildContext context) {
     return ViewScaffold(
