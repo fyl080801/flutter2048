@@ -36,10 +36,9 @@ class GameState {
     return GameState(
       mode: mode,
       status: GameStatus(
-        adds: 0,
-        moves: 0,
-        scores: 0,
         end: false,
+        scores: 0,
+        total: null,
       ),
       data: newdata,
     );
@@ -145,12 +144,15 @@ class GameState {
     return GameState(
       data: newdata,
       mode: this.mode,
-      status: GameStatus(
-        adds: this.status.adds,
-        end: this.status.end,
-        moves: this.status.moves,
-        scores: this.status.scores,
-      ),
+      status: this.status == null
+          ? null
+          : GameStatus(
+              adds: this.status.adds,
+              end: this.status.end,
+              moves: this.status.moves,
+              scores: this.status.scores,
+              total: this.status.total,
+            ),
     );
   }
 }

@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter2048/reducers/restart.dart';
+import 'package:flutter2048/actions/gameInit.dart';
 import 'package:flutter2048/store/GameState.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Scores extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<GameState, ScoresProps>(
       converter: (store) => ScoresProps(
-            scores: store.state.status.scores,
-            reset: () {
-              store.dispatch(GameRestartAction(store.state.mode));
-            },
-          ),
+        scores: store.state.status.scores,
+        total: store.state.status.total,
+        isEnd: store.state.status.end,
+        reset: () {
+          gameInit(store, store.state.mode);
+        },
+      ),
+      onDidChange: (props) {
+        if (props.isEnd && props.scores > props.total) {
+          SharedPreferences.getInstance().then((refs) {
+            refs.setInt('total_' + props.mode.toString(), props.scores);
+          });
+        }
+      },
       builder: (context, props) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,7 +81,7 @@ class Scores extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            '--',
+                            props.total.toString(),
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
@@ -120,8 +130,11 @@ class Scores extends StatelessWidget {
 }
 
 class ScoresProps {
-  ScoresProps({this.scores, this.reset});
+  ScoresProps({this.mode, this.total, this.scores, this.isEnd, this.reset});
 
+  int mode;
+  int total;
   int scores;
+  bool isEnd;
   Function reset;
 }

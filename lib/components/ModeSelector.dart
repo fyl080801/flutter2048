@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter2048/actions/gameInit.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import '../reducers/restart.dart';
 import '../store/GameState.dart';
 
 class ModeSelector extends StatelessWidget {
@@ -10,7 +10,7 @@ class ModeSelector extends StatelessWidget {
       converter: (store) {
         return ModeSelectorProps(
           mode: store.state.mode,
-          onChange: (mode) => store.dispatch(GameRestartAction(mode)),
+          onChange: (mode) => gameInit(store, mode),
         );
       },
       builder: (context, vm) {

@@ -13,10 +13,10 @@ class GameBgState extends State<StatefulWidget> {
   Widget build(BuildContext context) {
     return StoreConnector<GameState, GameBgProps>(
       converter: (store) => GameBgProps(
-            borderWidth: Screen.getBorderWidth(store.state.mode),
-            blockWidth: Screen.getBlockWidth(store.state.mode),
-            mode: store.state.mode,
-          ),
+        borderWidth: Screen.getBorderWidth(store.state.mode),
+        blockWidth: Screen.getBlockWidth(store.state.mode),
+        mode: store.state.mode,
+      ),
       builder: (context, vm) {
         return Container(
           padding: EdgeInsets.fromLTRB(vm.borderWidth, vm.borderWidth, 0, 0),
