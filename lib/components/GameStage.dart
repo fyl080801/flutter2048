@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter2048/actions/gameInit.dart';
 import 'package:flutter2048/components/Blocks.dart';
 import 'package:flutter2048/components/Scores.dart';
+import 'package:flutter2048/utils/Screen.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import './GameBg.dart';
@@ -16,12 +16,7 @@ import '../store/GameState.dart';
 class GameStage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-      BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width,
-          maxHeight: MediaQuery.of(context).size.height),
-      designSize: Size(750, 1334),
-    );
+    Screen.init(context);
 
     return StoreProvider(
       store: Store<GameState>(
