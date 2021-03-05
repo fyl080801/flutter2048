@@ -16,7 +16,13 @@ import '../store/GameState.dart';
 class GameStage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.instance = ScreenUtil(width: 750)..init(context);
+    ScreenUtil.init(
+      BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width,
+          maxHeight: MediaQuery.of(context).size.height),
+      designSize: Size(750, 1334),
+    );
+
     return StoreProvider(
       store: Store<GameState>(
         gameReducer,
